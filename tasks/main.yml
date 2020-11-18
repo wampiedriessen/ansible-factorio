@@ -32,6 +32,11 @@
   template:
     src: factorio.service.j2
     dest: "{{ factorio_directory }}/factorio.service"
+  vars:
+    factorio_server_args: >-
+      --start-server saves/ansible.zip
+      {% if factorio_bind_ip is defined %} --bind {{ factorio_bind_ip }}{% endif %}
+      {% if factorio_bind_port is defined %}:{{ factorio_bind_port}}{% endif %}
 
 - name: Factorio | Install systemd service file
   file:

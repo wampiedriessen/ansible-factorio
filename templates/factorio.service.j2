@@ -10,7 +10,7 @@ Group={{ factorio_user }}
 
 Restart=always
 
-ExecStart=/usr/bin/screen -DmS fc-%i {{ factorio_directory }}/bin/x64/factorio --start-server saves/ansible.zip
+ExecStart=/usr/bin/screen -DmS fc-%i {{ factorio_directory }}/bin/x64/factorio {{ factorio_server_args }}
 
 ExecStop=/usr/bin/screen -p 0 -S fc-%i -X eval 'stuff "SERVER SHUTTING DOWN IN 10 SECONDS. SAVING MAPS..."\015'
 ExecStop=/bin/sleep 10
