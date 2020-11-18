@@ -1,0 +1,34 @@
+[Unit]
+Description=Launches a Factorio Server
+After=network.target
+
+[Service]
+WorkingDirectory={{ factorio_directory }}
+
+User={{ factorio_user }}
+Group={{ factorio_user }}
+
+Restart=always
+
+ExecStart=/usr/bin/screen -DmS fc-%i {{ factorio_directory }}/bin/x64/factorio --start-server saves/ansible.zip
+
+ExecStop=/usr/bin/screen -p 0 -S fc-%i -X eval 'stuff "SERVER SHUTTING DOWN IN 10 SECONDS. SAVING MAPS..."\015'
+ExecStop=/bin/sleep 10
+ExecStop=/usr/bin/screen -p 0 -S fc-%i -X eval 'stuff ^C'
+
+
+# Old format, here for memoires
+# [Unit]
+# Description=Launches a Factorio server in the background
+# After=network.target
+# Wants=network-online.target
+# 
+# [Service]
+# Type=forking
+# WorkingDirectory=/opt/factorio
+# ExecStart=/usr/bin/tmux new-session -d -s factorio '/opt/factorio/bin/x64/factorio --start-server saves/{{ save_file }}'
+# ExecStop=/usr/bin/tmux kill-session -t factorio
+# User=factorio
+# 
+# [Install]
+# WantedBy=multi-user.target

@@ -1,0 +1,6 @@
+---
+# defaults file for ansible-factorio
+factorio_user: factorio
+factorio_directory: /opt/factorio
+factorio_version: '1.0.0'
+factorio_checksum: sha1:a50dd6f1ab17acde5a8d77bc5fb478c798d9c20e
