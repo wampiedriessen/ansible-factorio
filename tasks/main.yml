@@ -7,9 +7,9 @@
 
 - name: Factorio | Download Factorio Headless
   get_url:
-    src: "https://factorio.com/get-download/{{ factorio_version }}/headless/linux64"
+    url: "https://factorio.com/get-download/{{ factorio_version }}/headless/linux64"
     dest: /tmp/factorio-headless
-    check: "{{ factorio_checksum }}"
+    checksum: "{{ factorio_checksum }}"
 
 - name: Factorio | Unpack Factorio
   unarchive:
@@ -34,7 +34,7 @@
     dest: "{{ factorio_directory }}/factorio.service"
   vars:
     factorio_server_args: >-
-      --start-server saves/ansible.zip
+      --start-server {{ factorio_directory }}/saves/ansible.zip
       {% if factorio_bind_ip is defined %} --bind {{ factorio_bind_ip }}{% endif %}
       {% if factorio_bind_port is defined %}:{{ factorio_bind_port}}{% endif %}
 
@@ -50,12 +50,12 @@
     owner: "{{ factorio_user }}"
     group: "{{ factorio_user }}"
     state: directory
-    mode: '0755'
+    mode: '1755'
 
 - name: Factorio | Upload save file
   copy:
-    dest: "{{ factorio_save_file }}"
-    src: "../../saves/ansible.zip"
+    src: "{{ factorio_save_file }}"
+    dest: "{{ factorio_directory }}/saves/ansible.zip"
     owner: "{{ factorio_user }}"
     group: "{{ factorio_user }}"
   when: factorio_save_file is defined
@@ -69,7 +69,7 @@
 
 - name: Factorio | Start Factorio server
   systemd:
-    name: "{{ factorio_systemd_service }}"
+    name: factorio
     enabled: yes
     state: started
     daemon_reload: yes
