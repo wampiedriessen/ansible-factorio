@@ -60,10 +60,11 @@
     group: "{{ factorio_user }}"
   when: factorio_save_file is defined
 
+# ToDo: add map-gen-settings variables
 - name: Factorio | Create a save file
-  # ToDo: add map-gen-settings variables
-  command: "{{ factorio_directory }}/bin/x64/factorio --create {{ factorio_directory }}/saves/ansible.zip"
-  creates: "{{ factorio_directory }}/saves/ansible.zip"
+  command:
+    cmd: "{{ factorio_directory }}/bin/x64/factorio --create {{ factorio_directory }}/saves/ansible.zip"
+    creates: "{{ factorio_directory }}/saves/ansible.zip"
   when: factorio_save_file is undefined
 
 - name: Factorio | Start Factorio server
