@@ -1,7 +1,7 @@
 ---
 # tasks file for ansible-factorio
 - name: Factorio | Create 'factorio' user
-  user: 
+  user:
     name: "{{ factorio_user }}"
     create_home: no
 
@@ -36,7 +36,7 @@
     factorio_server_args: >-
       --start-server {{ factorio_directory }}/saves/ansible.zip
       {% if factorio_bind_ip is defined %} --bind {{ factorio_bind_ip }}{% endif %}
-      {% if factorio_bind_port is defined %}:{{ factorio_bind_port}}{% endif %}
+      {% if factorio_bind_port is defined %}:{{ factorio_bind_port }}{% endif %}
 
 - name: Factorio | Install systemd service file
   file:
