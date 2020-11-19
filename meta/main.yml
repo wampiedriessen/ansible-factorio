@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: factorio
   author: Wampie Driessen
   description: Installs and runs a Factorio server
   license: BSD-3-Clause
